@@ -5,21 +5,10 @@ public:
         int n=mat[0].size();
         if(m*n!=r*c)
             return mat;
-        vector<int>v;
-        for(int i=0;i<m;i++)
-        {
-            for(int j=0;j<n;j++)
-                v.push_back(mat[i][j]);
-        }
-        int k=0;
         vector<vector<int>>res(r,vector<int>(c));
-        for(int i=0;i<r;i++)
+        for(int i=0;i<r*c;i++)
         {
-            for(int j=0;j<c;j++)
-            {
-                res[i][j]=v[k];
-                k++;
-            }
+            res[i/c][i%c]=mat[i/n][i%n];
         }
         return res;
     }
