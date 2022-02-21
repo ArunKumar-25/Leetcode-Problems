@@ -1,7 +1,13 @@
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-        sort(nums.begin(),nums.end());
-        return nums[(nums.size()-1)/2];
+        map<int,int>mp;
+        for(auto x:nums)
+        {
+            mp[x]++;
+            if(mp[x]>nums.size()/2)
+                return x;
+        }
+        return 0;      
     }
 };
