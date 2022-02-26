@@ -48,13 +48,10 @@ public:
                     v2.push_back(0);
             }
         }
-        for(int i=0;i<v1.size();i++)
-        {
-            if(v1[i]<v2[i])
-                return -1;
-            if(v1[i]>v2[i])
-                return 1;
-        }
+        if(v1<v2)
+            return -1;
+        if(v1>v2)
+            return 1;
         return 0;
     }
     
