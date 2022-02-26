@@ -1,58 +1,29 @@
 class Solution {
 public:
     int compareVersion(string version1, string version2) {
-        vector<int>v1,v2;
-        version1.push_back('.');
-        version2.push_back('.');
-        int i=0,temp=0;
-        while(i<version1.size())
+        int n1=version1.size(),n2=version2.size();
+        int i=0,j=0;
+        while(i<n1 || j<n2)
         {
-            if(version1[i]=='.')
+            int num1=0;
+            int num2=0;
+            while(i<n1 && version1[i]!='.')
             {
-                v1.push_back(temp);
-                temp=0;
+                num1=num1*10+(version1[i]-'0');
+                i++;
             }
-            else
+            while(j<n2 && version2[j]!='.')
             {
-                temp=temp*10+(version1[i]-'0');
+                num2=num2*10+(version2[j]-'0');
+                j++;
             }
+            if(num1<num2)
+                return -1;
+            if(num1>num2)
+                return 1;
             i++;
+            j++;
         }
-        i=0,temp=0;
-        while(i<version2.size())
-        {
-            if(version2[i]=='.')
-            {
-                v2.push_back(temp);
-                temp=0;
-            }
-            else
-            {
-                temp=temp*10+(version2[i]-'0');
-            }
-            i++;
-        }
-
-        if(v1.size()!=v2.size())
-        {
-            if(v1.size()<v2.size())
-            {
-                int x=v2.size()-v1.size();
-                while(x--)
-                    v1.push_back(0);
-            }
-            else
-            {
-                int x=v1.size()-v2.size();
-                while(x--)
-                    v2.push_back(0);
-            }
-        }
-        if(v1<v2)
-            return -1;
-        if(v1>v2)
-            return 1;
         return 0;
     }
-    
 };
