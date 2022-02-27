@@ -15,30 +15,16 @@ public:
             return list2;
         if(!list2)
             return list1;
-        ListNode* list3=new ListNode();
-        ListNode* curr=list3;
-        while(list1!=NULL && list2!=NULL)
+        if(list1->val<=list2->val)
         {
-            if(list1->val<=list2->val)
-            {
-                curr->next=list1;
-                list1=list1->next;
-            }
-            else
-            {
-                curr->next=list2;
-                list2=list2->next;
-            }
-            curr=curr->next;
-        }
-        if(list1)
-        {
-            curr->next=list1;
+            list1->next=mergeTwoLists(list1->next,list2);
+            return list1;
         }
         else
         {
-            curr->next=list2;
+            list2->next=mergeTwoLists(list1,list2->next);
+            return list2;
         }
-        return list3->next;
+        
     }
 };
