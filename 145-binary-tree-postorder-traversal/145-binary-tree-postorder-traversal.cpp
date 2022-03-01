@@ -1,38 +1,37 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
 class Solution {
 public:
     vector<int> postorderTraversal(TreeNode* root) {
-        if(root==NULL)
+        
+        if(!root){
             return {};
-        stack<TreeNode*>st1,st2;
-        st1.push(root);
-        while(!st1.empty())
-        {
-            root=st1.top();
-            st1.pop();
-            st2.push(root);
-            if(root->left)
-                st1.push(root->left);
-            if(root->right!=NULL)
-                st1.push(root->right);
         }
         
-        vector<int>v;
-        while(!st2.empty())
-        {
-            v.push_back(st2.top()->val);
-            st2.pop();
+        vector<int> res;
+        stack<TreeNode*> track;
+        track.push(root);
+        
+        while(!track.empty()){
+            
+            TreeNode* node = track.top();
+            if(node == nullptr){
+                track.pop();
+                res.push_back(track.top()->val);
+                track.pop();
+            } else if(track.top()->left == nullptr && track.top()->right == nullptr){
+                res.push_back(track.top()->val);
+                track.pop();
+            } else{
+                track.push(nullptr);
+                if(node->right != nullptr){
+                    track.push(node->right);
+                } 
+                
+                if(node->left != nullptr){
+                    track.push(node->left);
+                }
+            }
         }
-        return v;
+                
+        return res;
     }
 };
