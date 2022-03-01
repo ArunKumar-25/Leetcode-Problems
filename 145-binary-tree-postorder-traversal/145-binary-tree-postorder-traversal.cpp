@@ -17,24 +17,21 @@ public:
         TreeNode* prev=NULL;
         while(root!=NULL || !st.empty())
         {
-            if(root)
+            while(root)
             {
                 st.push(root);
                 root=root->left;
             }
-            else
+            root=st.top();
+            if(root->right==NULL || root->right==prev)
             {
-                root=st.top();
-                if(root->right==NULL || root->right==prev)
-                {
-                    v.push_back(root->val);
-                    st.pop();
-                    prev=root;
-                    root=NULL;
-                }
-                else
-                    root=root->right;
+                v.push_back(root->val);
+                st.pop();
+                prev=root;
+                root=NULL;
             }
+            else
+                root=root->right;
         }
         return v;
     }
