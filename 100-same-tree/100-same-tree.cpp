@@ -16,10 +16,6 @@ public:
             return true;
         if(p==NULL || q==NULL)
             return false;
-        if(p->left==NULL && q->left!=NULL || p->left!=NULL && q->left==NULL)
-            return false;
-        if(p->right==NULL && q->right!=NULL || p->right!=NULL && q->right==NULL)
-            return false;
         return (p->val==q->val && isSameTree(p->left,q->left) && isSameTree(p->right,q->right));
     }
 };
