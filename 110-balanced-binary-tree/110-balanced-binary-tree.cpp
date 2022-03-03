@@ -11,10 +11,8 @@
  */
 class Solution {
 public:
-    bool f=true;
     bool isBalanced(TreeNode* root) {
-        height(root);
-        return f;
+        return height(root)!=-1;
     }
     int height(TreeNode* root)
     {
@@ -22,9 +20,14 @@ public:
             return 0;
         
         int lh=height(root->left);
+        if(lh==-1)
+            return -1;
         int rh=height(root->right);
+        if(rh==-1)
+            return -1;
+        
         if(abs(lh-rh)>1)
-            f=0;
+            return -1;
         return max(lh,rh)+1;
     }
 };
