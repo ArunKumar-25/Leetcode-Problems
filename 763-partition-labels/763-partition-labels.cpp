@@ -1,24 +1,23 @@
 class Solution {
 public:
+
     vector<int> partitionLabels(string s) {
-        vector<int> end_idx(26,0);
-        
-        for(int i = 0; i < s.length(); ++i)
-            end_idx[s[i] - 'a']  = i;
-        
-        vector<int> res;
-        
-        int start = 0, end = 0;
-        for(int i = 0; i < s.length(); ++i)
+        int n=s.length();
+        vector<int>res;
+        map<char,int>mp;
+        for(int i=0;i<n;i++)
+            mp[s[i]]=i;
+        int prev=-1,curr=0;
+        for(int i=0;i<n;i++)
         {
-            end = max(end, end_idx[s[i] - 'a']);
-            if( i == end)
+            curr=max(curr,mp[s[i]]);
+            if(i==curr)
             {
-                res.push_back(i - start + 1);
-                start = i + 1;
+                res.push_back(curr-prev);
+                prev=curr;
             }
+            
         }
-        
         return res;
     }
 };
