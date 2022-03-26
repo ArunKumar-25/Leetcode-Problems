@@ -9,7 +9,7 @@ public:
             else
                 level--;
             if(s[i]==')' && s[i-1]=='(')
-                score+=pow(2,level);
+                score+=(1<<level);
         }
         return score;
     }
