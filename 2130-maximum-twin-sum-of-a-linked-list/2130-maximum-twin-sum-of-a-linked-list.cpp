@@ -11,6 +11,8 @@
 class Solution {
 public:
     int pairSum(ListNode* head) {
+        ios_base::sync_with_stdio(0);
+        cin.tie(0);
         deque<int>dq;
         ListNode* slow=head;
         ListNode* fast=head->next;
