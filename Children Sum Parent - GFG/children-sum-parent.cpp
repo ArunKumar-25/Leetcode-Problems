@@ -107,31 +107,18 @@ class Solution{
     //equal to the sum of their child nodes.
     int isSumProperty(Node *root)
     {
+     // Add your code here
         if(!root)
-         return 0;
-        queue<Node*>q;
-        q.push(root);
-        while(!q.empty())
-        {
-            Node* curr=q.front();
-            q.pop();
-            int l=0,r=0;
-            if(curr->left!=NULL)
-                l=curr->left->data;
-            if(curr->right!=NULL)
-                r=curr->right->data;
-            if(l!=0 || r!=0)
-            {
-                if(curr->data!=(l+r))
-                    return false;
-            }
-            if(curr->left)
-                q.push(curr->left);
-            if(curr->right)
-                q.push(curr->right);
-            
-        }
-        return true;
+            return 1;
+         if(!root->left && !root->right)
+            return 1;
+        int sum=0;
+        if(root->left)
+            sum+=root->left->data;
+        if(root->right)
+            sum+=root->right->data;
+        
+        return (sum==root->data) && isSumProperty(root->left) && isSumProperty(root->right);
     }
 };
 
