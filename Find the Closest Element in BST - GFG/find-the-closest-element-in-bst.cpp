@@ -23,53 +23,19 @@ struct Node {
 class Solution
 {
     public:
-    int floorBST(Node* root,int K)
-    {
-        int curr=-1;
-        while(root)
-        {
-            if(root->data==K)
-                return K;
-            else if(root->data<K)
-            {
-                curr=root->data;
-                root=root->right;
-            }
-            else
-            {
-                root=root->left;
-            }
-        }
-        
-        return curr;
-    }
-    int ceilBST(Node* root,int K)
-    {
-        int curr=-1;
-        while(root)
-        {
-            if(root->data==K)
-            return K;
-            else if(root->data<K)
-                root=root->right;
-            else
-            {
-                curr=root->data;
-                root=root->left;
-            }
-        }
-        
-        return curr;
-    }
+    //Function to find the least absolute difference between any node
+	//value of the BST and the given integer.
     int minDiff(Node *root, int K)
     {
-        //Your code here
         if(!root)
+            return INT_MAX;
+        int d=abs(root->data-K);
+        if(root->data==K)
             return 0;
-        int x=floorBST(root,K);
-        int y=ceilBST(root,K);
-        
-        return abs(x-K)<abs(y-K)?abs(x-K):abs(y-K);
+        else if(root->data>K)
+            return min(d,minDiff(root->left,K));
+        else
+            return min(d,minDiff(root->right,K));
     }
 };
 
