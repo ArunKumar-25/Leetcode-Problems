@@ -1,8 +1,10 @@
+
 class MyHashSet {
-public:
     vector<bool>res;
-    MyHashSet() :res(1e6+1,false){
-        
+    const int n= 1e6+5;
+public:
+    MyHashSet() {
+        for(int i = 0 ; i < n ; i++) res.push_back(false);
     }
     
     void add(int key) {
