@@ -1,10 +1,9 @@
 
 class MyHashSet {
-    vector<bool>res;
-    const int n= 1e6+5;
 public:
+    vector<bool>res;
     MyHashSet() {
-        for(int i = 0 ; i < n ; i++) res.push_back(false);
+        res.resize(1e6+1,false);
     }
     
     void add(int key) {
