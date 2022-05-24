@@ -9,8 +9,25 @@ class Solution{
     public:
     int maxDistinctNum(int arr[], int n, int k)
     {
-        set<int>st(arr,arr+n);
-        return (n-st.size()>=k)?st.size():n-k;
+        map<int,int>mp;
+        for(int i=0;i<n;i++)
+            mp[arr[i]]++;
+        vector<int>v;
+        for(auto it:mp)
+            v.push_back(it.second);
+        int temp=0;
+        for(int i=0;i<v.size();i++)
+            temp+=v[i]-1;
+        if(k<=temp)
+            return v.size();
+        k=k-temp;
+        int ans=v.size();
+        while(k--)
+        {
+            ans--;
+        }
+        return ans;
+        
     	
     }
 };
