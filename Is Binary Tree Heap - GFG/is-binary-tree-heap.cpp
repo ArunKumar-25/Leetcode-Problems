@@ -92,34 +92,33 @@ Node *buildTree(string str) {
 
 class Solution {
   public:
-    bool isHeap(struct Node* tree) {
-        queue<Node*>q;
-        q.push(tree);
-        bool isNULL=false;
-        while(!q.empty())
-        {
-            Node* curr=q.front();
-            q.pop();
-            if(curr->left)
-            {
-                if(curr->data<curr->left->data || isNULL)
-                    return false;
-                q.push(curr->left);
-            }
-            else
-                isNULL=true;
-            if(curr->right)
-            {
-                if(curr->data<curr->right->data || isNULL)
-                    return false;
-                q.push(curr->right);
-            }
-            else
-                isNULL=true;
-        }
-        return isNULL;
+    int countNode(struct Node* root)
+    {
+        if(root==NULL)
+            return 0;
+        return 1+countNode(root->left)+countNode(root->right);
+    }
+    bool isComplete(struct Node* root,int i,int cnt)
+    {
+        if(root==NULL)
+            return true;
+        if(i>=cnt)
+            return false;
+        return isComplete(root->left,2*i+1,cnt) && isComplete(root->right,2*i+2,cnt);
+    }
+    bool checkValue(struct Node* root)
+    {
+        if(root==NULL)
+            return true;
+        if(root->left && root->data<root->left->data)   return false;
+        if(root->right && root->data<root->right->data) return false;
         
-        
+        return checkValue(root->left) && checkValue(root->right);
+    }
+    bool isHeap(struct Node* root) {
+        // code here
+        int cnt=countNode(root);
+        return isComplete(root,0,cnt) && checkValue(root);
     }
 };
 
