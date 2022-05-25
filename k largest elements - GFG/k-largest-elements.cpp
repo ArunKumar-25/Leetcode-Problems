@@ -10,11 +10,12 @@ class Solution{
 public:	
 	vector<int> kLargest(int arr[], int n, int k) {
 	    // code here
-	    priority_queue<int,vector<int>,greater<int>>pq(arr,arr+n);
-	    int x=n-k;
-	    while(x--)
+	    priority_queue<int,vector<int>,greater<int>>pq;
+	    for(int i=0;i<n;i++)
 	    {
-	        pq.pop();
+	        pq.push(arr[i]);
+	        if(pq.size()>k)
+	            pq.pop();
 	    }
 	    vector<int>res;
 	    while(!pq.empty())
