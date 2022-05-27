@@ -15,56 +15,37 @@ for (int i=0; i < size; i++)
 //User function Template for C++
 
 
-struct Element {
-   int value;
-   int currentRow;
-   int currentCol;
-   
-   Element(int v, int r, int c) {
-       value = v;
-       currentRow = r;
-       currentCol = c;
-   }
-};
-
-struct Comparator {
-   bool operator()(Element const& e1, Element const& e2) {
-       return e1.value > e2.value;
-   }
-};
-
 class Solution
 {
-   public:
-   //Function to merge k sorted arrays.
-   vector<int> mergeKArrays(vector<vector<int>> arr, int K)
-   {
-       //code here
-       vector<int> ans;
-       priority_queue<Element, vector<Element>, Comparator> mh;
-       
-       for(int i=0;i<K;i++) {
-           mh.push(Element(arr[i][0], i, 0));
-       }
-       
-       while(!mh.empty()) {
-           Element temp = mh.top();
-           int val = temp.value;
-           int row = temp.currentRow;
-           int col = temp.currentCol;
-           
-           mh.pop();
-           
-           ans.push_back(val);
-           
-           if(col+1 < K) {
-               mh.push(Element(arr[row][col+1], row, col+1));
-           }
-       }
-       
-       return ans;
-   }
+    public:
+    //Function to merge k sorted arrays.
+    vector<int> mergeKArrays(vector<vector<int>> arr, int K)
+    {
+        //code here
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+        
+        for(int i=0;i<K;i++)
+        {
+            pq.push({arr[i][0],i});
+        }
+        vector<int>index(K,1),res;
+        while(!pq.empty())
+        {
+            pair<int,int>tp=pq.top();
+            pq.pop();
+            res.push_back(tp.first);
+            if(index[tp.second]<K)
+            {
+                pq.push({arr[tp.second][index[tp.second]],tp.second});
+                index[tp.second]++;
+                
+            }
+            
+        }
+        return res;
+    }
 };
+
 // { Driver Code Starts.
 
 int main()
