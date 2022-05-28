@@ -9,37 +9,38 @@ class Solution
     public:
     string rearrangeString(string str)
     {
-        //code here
-        unordered_map<char,int>mp;
-        vector<char>res(str.size());
-        string s;
-        for(auto ch:str)
-            mp[ch]++;
-        priority_queue<pair<int,char>>pq;
-        for(auto x:mp)
-            pq.push({x.second,x.first});
-        if(pq.top().first>(str.size()+1)/2)
-            return "-1";
-        else
+        int cnt[26]={0};
+        int n=str.size();
+        int maxCount=0;
+        for(int i=0;i<n;i++)
         {
-            int i=0;
-            while(!pq.empty())
-            {
-                int x=pq.top().first;
-                char ch=pq.top().second;
-                pq.pop();
-                while(x--)
-                {
-                    res[i]=ch;
-                    i+=2;
-                    if(i>=str.size())
-                        i=1;
-                }
-            }
-            for(auto ch:res)
-                s+=ch;
+            cnt[str[i]-'a']++;
+            if(cnt[str[i]-'a']>maxCount)
+                maxCount=cnt[str[i]-'a'];
         }
-        return s;
+            
+        priority_queue<pair<int,char>>pq;
+        for(int i=0;i<26;i++)
+            if(cnt[i])
+                pq.push({cnt[i],i+'a'});
+        if(maxCount>(n+1)/2)
+            return "-1";
+        int i=0;
+        string res(n,' ');
+        while(!pq.empty())
+        {
+            int freq=pq.top().first;
+            int ch=pq.top().second;
+            pq.pop();
+            while(freq--)
+            {
+                res[i]=ch;
+                i+=2;
+                if(i>=n)
+                    i=1;
+            }
+        }
+        return res;
     }
     
 };
