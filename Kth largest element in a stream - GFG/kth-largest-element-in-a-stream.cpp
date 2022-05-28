@@ -9,22 +9,18 @@ class Solution {
         // code here
         priority_queue<int,vector<int>,greater<int>>pq;
         vector<int>res;
-        for(int i=0;i<k;i++)
+        for(int i=0;i<k-1;i++)
         {
             pq.push(arr[i]);
-            if(i<k-1)
-                res.push_back(-1);
+            res.push_back(-1);
         }
-        for(int i=k;i<n;i++)
+        for(int i=k-1;i<n;i++)
         {
-            res.push_back(pq.top());
-            if(arr[i]>pq.top())
-            {
+            pq.push(arr[i]);
+            if(pq.size()>k)
                 pq.pop();
-                pq.push(arr[i]);
-            }
+            res.push_back(pq.top());
         }
-        res.push_back(pq.top());
         return res;
     }
 };
