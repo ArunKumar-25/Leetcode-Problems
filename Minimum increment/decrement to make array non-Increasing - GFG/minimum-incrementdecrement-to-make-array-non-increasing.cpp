@@ -13,16 +13,15 @@ class Solution{
 public:
     int minOperations(int *a,int n)
     {
+        int cost=0;
         priority_queue<int,vector<int>,greater<int>>pq;
-        int cost=0,diff=0;
         for(int i=0;i<n;i++)
         {
             if(!pq.empty() && pq.top()<a[i])
             {
-                diff=a[i]-pq.top();
-                cost+=diff;
-                pq.pop();
+                cost+=a[i]-pq.top();
                 pq.push(a[i]);
+                pq.pop();
             }
             pq.push(a[i]);
         }
