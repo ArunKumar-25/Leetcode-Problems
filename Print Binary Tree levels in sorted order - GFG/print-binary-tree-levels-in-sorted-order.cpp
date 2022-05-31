@@ -11,19 +11,17 @@ class Solution
     vector <vector <int>> binTreeSortedLevels (int arr[], int n)
     {
         vector<vector<int>>res;
-        priority_queue<int>pq;
         int i=0,j=0;
         while(i<n)
         {
-            vector<int>v;
-            v.clear();
-            int node=pow(2,j);
-            while(node-- && i<n)
+            vector<int>temp;
+            int nodes=pow(2,j);
+            while(nodes-- && i<n)
             {
-                v.push_back(arr[i++]);
+                temp.push_back(arr[i++]);
             }
-            sort(v.begin(),v.end());
-            res.push_back(v);
+            sort(temp.begin(),temp.end());
+            res.push_back(temp);
             j++;
         }
         return res;
