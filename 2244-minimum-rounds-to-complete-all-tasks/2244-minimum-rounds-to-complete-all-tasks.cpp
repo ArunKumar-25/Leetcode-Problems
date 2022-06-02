@@ -9,7 +9,10 @@ public:
         {
             if(x.second==1)
                 return -1;
-            cnt+=(x.second+2)/3;
+            else if(x.second%3==0)
+                cnt+=x.second/3;
+            else
+                cnt+=x.second/3+1;
         }
         return cnt;
     }
