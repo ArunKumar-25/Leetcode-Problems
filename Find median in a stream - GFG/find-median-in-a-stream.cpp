@@ -26,19 +26,32 @@ class Solution
     {
         int diff=maxheap.size()-minheap.size();
        if(abs(diff)>1)
-       {
-           if(maxheap.size()>minheap.size())
-           {
-               minheap.push(maxheap.top());
-               maxheap.pop();
-           }
-           else
-           {
-               maxheap.push(minheap.top());
-               minheap.pop();
-           }
-       }     
-        
+        {
+            if(maxheap.size()>minheap.size())
+            {
+                minheap.push(maxheap.top());
+                maxheap.pop();
+            }
+            else
+            {
+                maxheap.push(minheap.top());
+                minheap.pop();
+            }
+        }
+    //     int diff=maxHeap.size()-minHeap.size();
+    //   if(abs(diff)>1)
+    //   {
+    //       if(maxHeap.size()>minHeap.size())
+    //       {
+    //           minHeap.push(maxHeap.top());
+    //           maxHeap.pop();
+    //       }
+    //       else
+    //       {
+    //           maxHeap.push(minHeap.top());
+    //           minHeap.pop();
+    //       }
+    //   }      
     }
     
     //Function to return Median.
@@ -48,7 +61,12 @@ class Solution
         {
             return (minheap.top()+maxheap.top())/2;
         }
-         return maxheap.size()>minheap.size() ? maxheap.top():minheap.top();
+        else if(minheap.size()>maxheap.size())
+        {
+            return minheap.top();
+        }
+        else
+            return maxheap.top();
     }
 };
 
