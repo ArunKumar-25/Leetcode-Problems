@@ -24,7 +24,7 @@ class Solution
     //Function to balance heaps.
     void balanceHeaps()
     {
-        int diff=maxheap.size()-minheap.size();
+        int diff=(maxheap.size()-minheap.size());
        if(abs(diff)>1)
         {
             if(maxheap.size()>minheap.size())
