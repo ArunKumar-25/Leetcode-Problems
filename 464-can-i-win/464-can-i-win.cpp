@@ -1,23 +1,27 @@
 class Solution {
-private:
-    int m,t;
-    vector<vector<int>> dp;
-    bool game(int mask,int player,int score){
-        if(dp[player][mask]!=-1) return dp[player][mask];
-        for(int i=0;i<m;i++)
-        {
-            int cmask = 1<<i;
-            if( (mask&cmask) == 0 )
-                    if(score+i+1 >= t or game((mask|cmask),(player^1),score+i+1)==false ) return dp[player][mask]=1;
-        }
-        return dp[player][mask]=0;
-    }
 public:
-    bool canIWin(int maxChoosableInteger, int desiredTotal) {
-        m=maxChoosableInteger;
-        t=desiredTotal;
-        if((m*(m+1))/2 < t) return false;
-        dp.resize(2,vector<int>(1<<m,-1));
-        return game(0,0,0);
+    vector<int> dp;
+    
+    bool changeTurn(int x, int mask, int k) {
+        if(k<=0) return false;
+        if(dp[mask]!=-1) return dp[mask];
+        for(int j=1;j<=x;j++) {
+            dp[mask] = false;
+            if(!(mask&(1<<j))) {
+                dp[mask] = dp[mask] | !changeTurn(x,mask|(1<<j),k-j);
+                if(dp[mask]) return dp[mask] = true;
+            }
+        }
+        return dp[mask] = false;
+    }
+    
+    
+    
+    bool canIWin(int x, int k) {
+        dp = vector<int>(1<<(x+1),-1);
+        if(k==0) return true;
+        if((x*(x+1))/2<k) return false;
+        int mask = 0;
+        return changeTurn(x,mask,k);
     }
 };
