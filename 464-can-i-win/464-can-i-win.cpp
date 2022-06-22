@@ -1,7 +1,6 @@
 class Solution {
 public:
-    vector<int> dp;
-    
+    vector<int> dp; 
     bool changeTurn(int x, int mask, int k) {
         if(k<=0) return false;
         if(dp[mask]!=-1) return dp[mask];
@@ -14,9 +13,6 @@ public:
         }
         return dp[mask] = false;
     }
-    
-    
-    
     bool canIWin(int x, int k) {
         dp = vector<int>(1<<(x+1),-1);
         if(k==0) return true;
