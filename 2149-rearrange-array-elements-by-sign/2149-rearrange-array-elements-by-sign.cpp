@@ -1,5 +1,9 @@
 class Solution {
 public:
+    Solution(){
+        std::ios_base::sync_with_stdio(false);
+        std::cin.tie(nullptr);
+      }
     vector<int> rearrangeArray(vector<int>& nums) {
         vector<int>ans(nums.size());
         int pos=0,neg=1;
