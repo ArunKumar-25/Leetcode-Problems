@@ -37,14 +37,15 @@ public:
        return dp[n][sum];
    }
 
-   int equalPartition(int n, int arr[])
+   int equalPartition(int N, int arr[])
    {
        int sum=0;
-       for(int i=0;i<n;i++)
+        for(int i=0;i<N;i++)
             sum+=arr[i];
         if(sum%2!=0)
             return 0;
-        return solve(arr,sum/2,n);
+        
+        return solve(arr,sum/2,N);
    }
 };
 
