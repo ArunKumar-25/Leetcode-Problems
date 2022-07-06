@@ -9,42 +9,27 @@ using namespace std;
 
 class Solution{
 public:
-    bool solve(int arr[],int sum,int n)
-    {
-        bool dp[n+1][sum+1];
-        for(int i=0;i<n+1;i++)
-        {
-            for(int j=0;j<sum+1;j++)
-            {
-                if(i==0)
-                    dp[i][j]=false;
-                if(j==0)
-                    dp[i][j]=true;
-            }
+    int solve(int sum, int arr[],int index, vector<vector<int>>&dp){
+        if(index<0) return 0;
+        if(sum==0) return 1;
+        if(dp[index][sum]!=-1) return dp[index][sum];
+        if(arr[index]<=sum){
+            return dp[index][sum]=solve(sum,arr,index-1,dp) or solve(sum-arr[index],arr,index-1,dp);
         }
-        for(int i=1;i<n+1;i++)
-        {
-            for(int j=1;j<sum+1;j++)
-            {
-                if(arr[i-1]<=j)
-                {
-                    dp[i][j]= dp[i-1][j-arr[i-1]] || dp[i-1][j];
-                }
-                else
-                    dp[i][j]=dp[i-1][j];
-            }
-        }
-        return dp[n][sum];
+        return dp[index][sum]=solve(sum,arr,index-1,dp);
+        
     }
     int equalPartition(int N, int arr[])
     {
-        int sum=0;
-        for(int i=0;i<N;i++)
-            sum+=arr[i];
-        if(sum%2!=0)
-            return 0;
-        
-        return solve(arr,sum/2,N);
+         int sum=0;
+         for(int i=0; i<N; i++){
+             sum+=arr[i];
+         }
+         if(sum%2!=0) return 0;
+         sum/=2;
+         vector<vector<int>>dp(N, vector<int>(sum+1,-1));
+         return solve(sum,arr,N-1,dp);
+         
     }
 };
 
