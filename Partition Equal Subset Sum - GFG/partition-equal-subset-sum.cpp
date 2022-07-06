@@ -11,19 +11,19 @@ class Solution{
 public:
 
 
-   bool equalsum(int n, int arr[], int sum)
+   bool solve(int arr[],int sum,int n)
    {
        int dp[n+1][sum+1];
-       // initialization
-       for(int i = 0; i < n+1; i++)
+       for(int i=0;i<n+1;i++)
        {
-           for(int j = 0; j < sum+1; j++)
+           for(int j=0;j<sum+1;j++)
            {
-               if(j==0) dp[i][j] = true;
-               else if(i == 0) dp[i][j] = false;
+                if(i==0)
+                    dp[i][j]=false;
+                if(j==0)
+                    dp[i][j]=true;
            }
        }
-       // code
        for(int i = 1; i < n+1; i++)
        {
            for(int j = 1; j < sum+1; j++)
@@ -39,17 +39,12 @@ public:
 
    int equalPartition(int n, int arr[])
    {
-       int sum = 0;
-       for(int i = 0; i < n; i++)
-       {
-           sum+=arr[i];
-       }
-
-  // if sum is odd it can't be divided in two equal parts
-       if(sum%2!=0)
-           return false;
-  // if sum is even then we have to find the target as sum/2 
-       return  equalsum(n,arr,sum/2);
+       int sum=0;
+       for(int i=0;i<n;i++)
+            sum+=arr[i];
+        if(sum%2!=0)
+            return 0;
+        return solve(arr,sum/2,n);
    }
 };
 
