@@ -6,31 +6,22 @@ using namespace std;
 class Solution{
 
 	public:
-	int mod=(int)(1e9+7);
+	
+	int solve(int index, int arr[], int sum,vector<vector<int>>&dp){
+	    if(sum<0 or index<0) return 0;
+	    if(sum==0 and index==0){
+	        return 1;
+	    }
+	    if(dp[index][sum]!=-1) return dp[index][sum];
+	    if(sum>=arr[index-1]){
+	        return dp[index][sum]= ((solve(index-1,arr,sum-arr[index-1],dp))%(int)(1e9+7) + (solve(index-1,arr,sum,dp))%(int)(1e9+7))%(int)(1e9+7);
+	    }
+	    return dp[index][sum]=(solve(index-1,arr,sum,dp))%(int)(1e9+7);
+	}
 	int perfectSum(int arr[], int n, int sum)
 	{
-	    vector<vector<int>>dp(n+1,vector<int>(sum+1));
-	    for(int i=0;i<n+1;i++)
-	    {
-	        for(int j=0;j<sum+1;j++)
-	        {
-	            if(i==0)
-	                dp[i][j]=0;
-	            if(j==0)
-	                dp[i][j]=1;
-	        }
-	    }
-	    for(int i=1;i<n+1;i++)
-	    {
-	        for(int j=0;j<sum+1;j++)
-	        {
-	            if(arr[i-1]<=j)
-	                dp[i][j]=(dp[i-1][j-arr[i-1]]%mod + dp[i-1][j]%mod)%mod;
-	            else
-	                dp[i][j]=dp[i-1][j]%mod;
-	        }
-	    }
-	    return dp[n][sum]%mod;
+        vector<vector<int>> dp(n+1,vector<int>(sum+1,-1));
+        return solve(n,arr,sum,dp);
 	}
 	  
 };
