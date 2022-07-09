@@ -31,13 +31,14 @@ class Solution{
         {
             for(int j=1;j<V+1;j++)
             {
-                if(j>=coins[i-1])
+                
+                if(coins[i-1]<=j)
                     dp[i][j]=min(1+dp[i][j-coins[i-1]],dp[i-1][j]);
                 else
                     dp[i][j]=dp[i-1][j];
             }
         }
-        return dp[M][V]=(dp[M][V]==INT_MAX-1)?-1:dp[M][V];
+	    return dp[M][V]==INT_MAX-1?-1:dp[M][V];
 	} 
 	  
 };
