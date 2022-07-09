@@ -8,36 +8,26 @@ using namespace std;
 
 class Solution
 {
-   public:
-   // static int t[1001][1001];
-   int solve(int n, int m, string s1, string s2,vector<vector<int>>&t)
-   {
-       if(n == 0 || m == 0)
-       {
-           return 0;
-       }
-       if(t[n][m]!=-1)
-       {
-           return t[n][m];
-       }
-       if(s1[n-1] == s2[m-1])
-       {
-          return t[n][m] = 1+solve(n-1,m-1,s1,s2,t);
-           
-       }
-       else
-       {
-           t[n][m] = max(solve(n,m-1,s1,s2,t),solve(n-1,m,s1,s2,t));
-           return t[n][m];
-       }
-   }
-   int lcs(int n, int m, string s1, string s2)
-   {
-       vector<vector<int>>t(n+1,vector<int>(m+1,-1));
-       int x = solve(n,m,s1,s2,t);
-       return x;
-   }
+    public:
+    //Function to find the length of longest common subsequence in two strings.
+    int solve(int x, int y, string s1, string s2, vector<vector<int>>&dp)
+    {
+        if(x==0 || y==0)
+            return 0;
+        if(dp[x][y]!=-1)
+            return dp[x][y];
+        if(s1[x-1]==s2[y-1])
+            return dp[x][y]=1+solve(x-1,y-1,s1,s2,dp);
+        return dp[x][y]=max(solve(x-1,y,s1,s2,dp),solve(x,y-1,s1,s2,dp));
+    }
+    int lcs(int x, int y, string s1, string s2)
+    {
+        vector<vector<int>>dp(x+1,vector<int>(y+1,-1));
+        return solve(x,y,s1,s2,dp);
+        
+    }
 };
+
 
 // { Driver Code Starts.
 int main()
