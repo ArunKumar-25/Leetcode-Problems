@@ -35,11 +35,17 @@ public:
             if(dp[i][k]!=-1)
                 left=dp[i][k];
             else
+            {
                 left=solve(s,i,k,dp);
+                dp[i][k]=left;
+            }
             if(dp[k+1][j]!=-1)
                 right=dp[k+1][j];
             else
+            {
                 right=solve(s,k+1,j,dp);
+                dp[k+1][j]=right;
+            }
             int temp=left+right+1;
             if(temp<ans)
                 ans=temp;
