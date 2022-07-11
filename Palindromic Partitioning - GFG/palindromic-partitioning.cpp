@@ -24,10 +24,10 @@ public:
     {
         if(i>=j)
             return 0;
-        if(isPalindrome(s,i,j))
-            return dp[i][j]=0;
         if(dp[i][j]!=-1)
             return dp[i][j];
+        if(isPalindrome(s,i,j))
+            return dp[i][j]=0;
         int ans=INT_MAX;
         for(int k=i;k<=j-1;k++)
         {
