@@ -18,19 +18,18 @@ public:
         {
             if(curr->val<x)
             {
-                ListNode* t=new ListNode(curr->val);
-                curr1->next=t;
+                curr1->next=curr;
                 curr1=curr1->next;
             }
             else
             {
-                ListNode* t=new ListNode(curr->val);
-                curr2->next=t;
+                curr2->next=curr;
                 curr2=curr2->next;
             }
             curr=curr->next;
         }
-        curr1->next=second->next;
+        curr2->next = NULL;
+        curr1->next = second->next;
         return first->next;
     }
 };
