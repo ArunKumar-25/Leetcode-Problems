@@ -1,13 +1,24 @@
 class MyCalendar {
 public:
-    map<int,int>events;
-    MyCalendar() {   
+    map<int,int>mp;
+    MyCalendar() {
+        
     }
+    
     bool book(int start, int end) {
-        auto next = events.upper_bound(start);
-        if(next != events.end() &&   (*next).second < end)
-            return false;
-        events.insert({end,start});
+        mp[start]++;
+        mp[end]--;
+        int sum=0;
+        for(auto it=mp.begin();it!=mp.end();it++)
+        {
+            sum+=it->second;
+            if(sum>1)
+            {
+                mp[start]--;
+                mp[end]++;
+                return false;
+            }
+        }
         return true;
     }
 };
