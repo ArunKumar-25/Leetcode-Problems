@@ -134,16 +134,12 @@ vector <int> postOrder(Node* root)
   {
       Node* temp=st1.top();
       st1.pop();
-      st2.push(temp);
+      res.push_back(temp->data);
       if(temp->left)
         st1.push(temp->left);
       if(temp->right)
         st1.push(temp->right);
   }
-  while(!st2.empty())
-  {
-      res.push_back(st2.top()->data);
-      st2.pop();
-  }
+  reverse(res.begin(),res.end());
   return res;
 }
