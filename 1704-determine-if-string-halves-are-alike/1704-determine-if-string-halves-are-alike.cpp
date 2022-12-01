@@ -1,22 +1,23 @@
 class Solution {
 public:
-    bool isVowel(char c)
-    {
-        if(c=='a'||c=='i'||c=='e'||c=='o'||c=='u'||c=='A'||c=='E'||c=='I'||c=='O'||c=='U')
-            return true;
-        return false;
-    }
-    bool halvesAreAlike(string s) {
-        int vowel=0,i=0,j=s.length()-1;
+        bool halvesAreAlike(string s) {
+        string str="aeiouAEIOU";
+        int i=0;
+        int j=s.length()-1;
+        int c1=0,c2=0;
         while(i<j)
         {
-            if(isVowel(s[i]))
-                vowel++;
-            if(isVowel(s[j]))
-                vowel--;
-            i++;
-            j--;
+            if(str.find(s[i++])<str.length())
+               {
+                   c1++;
+                   
+               }
+        if(str.find(s[j--])<str.length())
+               {
+                   c2++;
+                   
+               }
         }
-        return vowel==0;
+                  return c1==c2;
     }
 };
