@@ -1,42 +1,19 @@
 class Solution {
 public:
-    struct comp {
-    template <typename T>
-
-    bool operator()(const T& l,
-                    const T& r) const
-    {
-        if (l.second != r.second) {
-            return l.second < r.second;
-        }
-        return l.first < r.first;
-    }
-};
     bool closeStrings(string word1, string word2) {
-        int n1=word1.size();
-        int n2=word2.size();
-        if(n1!=n2)
-            return false;
-        map<int,int>mp1,mp2;
-        for(int i=0;i<n1;i++)
+        vector<int>s1(26,0),s2(26,0),s3(26,0),s4(26,0);
+        for(int i=0;i<word1.size();i++)
         {
-            mp1[word1[i]]++;
-            mp2[word2[i]]++;
+            s1[word1[i]-'a']=1;
+            s3[word1[i]-'a']++;
         }
-        for(auto x:mp1)
+        for(int i=0;i<word2.size();i++)
         {
-            if(mp2.find(x.first)==mp2.end())
-                return false;
+            s2[word2[i]-'a']=1;
+            s4[word2[i]-'a']++;
         }
-        set<pair<char,int>, comp> st1(mp1.begin(),mp1.end());
-        set<pair<char,int>, comp> st2(mp2.begin(),mp2.end());
-        if(st1.size()!=st2.size())
-            return false;
-        for(auto i=st1.begin(),j=st2.begin();i!=st1.end();i++,j++)
-        {
-            if(i->second!=j->second)
-                return false;
-        }
-        return true;
+        sort(s3.begin(),s3.end());
+        sort(s4.begin(),s4.end());
+        return s1==s2 && s3==s4;
     }
 };
