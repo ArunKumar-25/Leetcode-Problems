@@ -12,22 +12,21 @@ public:
     vector<int> repeatingEven(int arr[], int n) {
         // code here
         vector<int>res;
-        int t[64]={0};
-        long long int _xor=0,pos;
+        long long int _xor=0LL,pos;
         for(int i=0;i<n;i++)
         {
-            if(t[arr[i]]==0)
-                t[arr[i]]=1;
-            else
-                t[arr[i]]=0;
+            pos=1LL<<arr[i];
+            _xor^=pos;
         }
+        // cout<<_xor<<'\n';
         for(int i=0;i<n;i++)
         {
-            if(t[arr[i]]==0)
-            {
+            pos=1LL<<arr[i];
+            if(!(_xor&pos)){
                 res.push_back(arr[i]);
-                t[arr[i]]=1;
+                _xor^=pos;
             }
+            
         }
         sort(res.begin(),res.end());
         if(res.size()==0)
