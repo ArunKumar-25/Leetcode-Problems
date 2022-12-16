@@ -20,13 +20,13 @@ class Solution{
             else
             {
                 int temp=num|(1<<i);
-                int dontmodify=0;
-                for(auto it:A)
+                int nonchange=0;
+                for(int j=0;j<N;j++)
                 {
-                    if((it&temp)==temp)
-                        dontmodify++;
+                    if((A[j]&temp)==temp)
+                        nonchange++;
                 }
-                ans=min(ans,N-dontmodify);
+                ans=min(ans,N-nonchange);
             }
         }
         return ans;
