@@ -1,33 +1,31 @@
 //{ Driver Code Starts
-//Initial Template for C++
 #include<bits/stdc++.h>
 using namespace std;
 
 
 // } Driver Code Ends
-//User function Template for C++
- 
-class Solution
-{
-    public:
-    // Function for finding maximum AND value.
-    int maxAND (int arr[], int N)
-    {
-        // Your code here
-        int res=0,cnt ;
-        for(int i=16;i>=0;i--)
-        {
-            int cnt=0,pattern=res|(1<<i);
-            for(int j=0;j<N;j++)
-            {
-                if((pattern&arr[j])==pattern)
-                    cnt++;
-            }
-            if(cnt>=2)
-                res=res|(1<<i);
-        }
-        return res;
-    }
+//User function template for C++
+class Solution{
+public:	
+	// Function for finding maximum and value pair
+	int maxAND (int arr[], int n)
+	{
+	    // Complete the function
+	    int res=0;
+	    for(int i=31;i>=0;i--)
+	    {
+	        int pattern=res|(1<<i),cnt=0;
+	        for(int j=0;j<n;j++)
+	        {
+	            if((arr[j]&pattern)==pattern)
+	                cnt++;
+	        }
+	        if(cnt>=2)
+	            res=res|(1<<i);
+	        
+	    }
+	    return res;
+	}
 };
 
 //{ Driver Code Starts.
@@ -36,19 +34,16 @@ class Solution
 int main()
 {
     int t;
-    cin>>t;//testcases
+    cin>>t;
     while(t--)
     {
         int n;
-        cin>>n;//input n
-        int arr[n+5],i;
-        
-        //inserting elements
+        cin>>n;
+        int arr[n],i;
         for(i=0;i<n;i++)
         cin>>arr[i];
-        Solution obj;
-        //calling maxAND() function
-        cout <<  obj.maxAND(arr,n)<<endl;
+        Solution ob;
+        cout <<  ob.maxAND(arr,n)<<endl;
     }
     return 0;
 }
