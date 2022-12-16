@@ -8,11 +8,12 @@ public:
     int find(int N){
         // code here
         int x=1,cnt=0;
-        while(2*x<N)
+        while(2*x<=N)
         {
             x*=2;
             cnt++;
         }
+        // cout<<cnt<<'\n';
         return (N-pow(2,cnt))*2+1;
     }
 };
