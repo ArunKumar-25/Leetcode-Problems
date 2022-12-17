@@ -12,26 +12,28 @@ class Solution
     public:
     int max_xor(int arr[] , int n)
     {
+        //code here
         int maxx = 0, mask = 0;
-        set<int> s;
-        for (int i = 30; i >= 0; i--) 
+        set<int>st;
+        for(int i=31;i>=0;i--)
         {
-            mask |= (1 << i);
-            for (int i = 0; i < n; ++i)
-                s.insert(arr[i] & mask);
             int newMaxx = maxx | (1 << i);
-            for (int prefix:s) 
+            for(int j=0;j<n;j++)
+                st.insert(arr[j]&newMaxx);
+            
+            for (int prefix:st) 
             {
-                if (s.count(newMaxx ^ prefix)) 
+                if (st.count(newMaxx ^ prefix)) 
                 {
                     maxx = newMaxx;
                     break;
                 }
             }
-            s.clear();
+            st.clear();
         }
         return maxx;
     }
+    
 };
 
 
