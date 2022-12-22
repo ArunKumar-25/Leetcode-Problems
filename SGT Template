@@ -1,0 +1,110 @@
+#include <bits/stdc++.h>
+#define ll long long
+using namespace std;
+
+class SGTree{
+    public:
+    
+    vector<int>seg;
+    SGTree(int n)
+    {
+        seg.resize(4*n);
+    }
+    
+    void buildTree(int idx,int low,int high,int arr[])
+    {
+        if(low==high)
+        {
+            seg[idx]=arr[low];
+            return;
+        }
+        int mid=(low+high)/2;
+        buildTree(2*idx+1,low,mid,arr);
+        buildTree(2*idx+2,mid+1,high,arr);
+        seg[idx]=min(seg[2*idx+1],seg[2*idx+2]);
+    }
+    
+    int query(int idx,int low,int high,int l,int r,int arr[])
+    {
+        if(r<low || high<l)
+            return INT_MAX;
+        if(low>=l && high<=r)
+            return seg[idx];
+        int mid=(low+high)/2;
+        int left=query(2*idx+1,low,mid,l,r,arr);
+        int right=query(2*idx+2,mid+1,high,l,r,arr);
+        return min(left,right);
+        
+    }
+    
+    void update(int idx,int low,int high,int i,int val,int arr[])
+    {
+        if(low==high)
+        {
+            seg[idx]=val;
+            return;
+        }
+        int mid=(low+high)/2;
+        if(i<=mid)
+            update(2*idx+1,low,mid,i,val,arr);
+        else
+            update(2*idx+2,mid+1,high,i,val,arr);
+        seg[idx]=min(seg[2*idx+1],seg[2*idx+2]);
+     }
+};
+void ArunKumar()
+{
+    int n;
+    cin>>n;
+    int arr1[n];
+    for(int i=0;i<n;i++)
+        cin>>arr1[i];
+    int m;
+    cin>>m;
+    int arr2[m];
+    for(int i=0;i<m;i++)
+        cin>>arr2[i];
+    SGTree s1(n);
+    SGTree s2(m);
+    s1.buildTree(0,0,n-1,arr1);
+    s2.buildTree(0,0,m-1,arr2);
+    int q;
+    cin>>q;
+    while(q--)
+    {
+        int type;
+        cin>>type;
+        if(type==1)
+        {
+            int l1,r1,l2,r2;
+            cin>>l1>>r1>>l2>>r2;
+            int min1=s1.query(0,0,n-1,l1,r1,arr1);
+            int min2=s2.query(0,0,m-1,l2,r2,arr2);
+            cout<<min(min1,min2)<<'\n';
+        }
+        if(type==2)
+        {
+            int arrno,i,val;
+            cin>>arrno>>i>>val;
+            if(arrno==1){
+                s1.update(0,0,n-1,i,val,arr1);
+                arr1[i]=val;
+            }
+            else{
+                s2.update(0,0,m-1,i,val,arr2);
+                arr2[i]=val;
+            }
+                
+        }
+    }
+} 
+
+int main() {
+	ll t;
+	cin>>t;
+	while(t--)
+	{
+	    ArunKumar();
+	}
+	return 0;
+}
