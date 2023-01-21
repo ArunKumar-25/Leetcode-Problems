@@ -1,16 +1,15 @@
 class Solution {
- public:
-  bool canThreePartsEqualSum(vector<int>& A) {
-    int sum = accumulate(begin(A), end(A), 0);
-    int prefix = 0;
-    int parts = 1;
-
-    for (int a : A) {
-      prefix += a;
-      if (prefix == sum * parts / 3)
-        ++parts;
+public:
+    bool canThreePartsEqualSum(vector<int>& A, int parts = 0) {
+      auto total = accumulate(begin(A), end(A), 0);
+      if (total % 3 != 0) return false;
+      for (auto i = 0, sum = 0; i < A.size(); ++i) {
+        sum += A[i];
+        if(sum == total/3){
+            sum = 0;
+            parts++;
+        }
+      }
+      return parts >= 3;
     }
-
-    return sum % 3 == 0 && parts > 3;
-  }
 };
